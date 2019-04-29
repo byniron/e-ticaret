@@ -1,0 +1,57 @@
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>UrunEkle</title>
+</head>
+<body>
+    <div class="container">
+
+        <div class="row">
+            <div class="col-sm-4 col-sm-offset-4" style="background-color:#d3d3d3; border:1px solid gray; padding:10px; border-radius:3px">
+                <form action="/Partial/UrunEkle" method="post" enctype="multipart/form-data"> 
+                    <h3>Ürün Ekleme</h3>
+                    <div class="form-group">
+                        <label>Ürün Adý</label>
+
+                        <input type="text" name="urunadi" value="" class="form-control" />
+
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Ürün Fiyatý</label>
+                        <input type="text" name="urunfiyat" value="" class="form-control" />
+                    </div>
+                   
+                    <div class="form-group">
+                        <label>Ürün Stok</label>
+                        <input type="text" name="urunstok" value="" class="form-control" />
+                    </div>
+                   
+                    <div class="form-group">
+                        <label>Ürün Açýklama</label>
+                        <textarea id="TextArea1" rows="3" class="form-control" name="urunaciklama"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Ürün Resim</label>
+                        <input id="urunresim" type="file" class="form-control" name="urunresim" />
+                    </div>
+
+                    <div class="form-group">
+                        <input id="Submit1" type="submit" value="Ekle" class="btn btn-success" />
+                        <span>@Html.Raw(ViewBag.Uyari)</span>
+                    </div>
+               
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,11 @@
+
+@model List<KATEGORILER>
+
+<ul class="nav nav-pills nav-stacked" style="background-color:whitesmoke">
+    <li class="active"><a href="/Kategori/Index">Tüm Ürünler</a></li> 
+     @foreach (var item in Model)
+     {
+    <li><a href="/Kategori/Index/@item.KATEGORI_ID">@item.KATEGORI_ADI</a></li> @*Link verme iþi*@
+     }
+  
+</ul>

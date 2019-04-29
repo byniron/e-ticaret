@@ -1,0 +1,48 @@
+
+@model List<EticaretSitesiBirkan.Controllers.SepetSinifi>
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Index.cshtml";
+}
+
+<div class="row">
+
+    <div class="clo-md-12">
+
+        <table class="table table-bordered">
+            <thead>
+                <tr style="background-color:#337ab7; color:white">
+                    <th>Ürün Adý</th>
+                    <th>Ürün Fiyat</th>
+                    <th>Ürün Adet</th>
+                    <th>Toplam Fiyat</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model) {
+                <tr style="background-color:whitesmoke; color:gray">
+                    <td>@item.UrunAdi</td>
+                    <td>@item.Fiyat.ToString("C")</td>
+                    <td>@item.Adet</td>
+                    <td>@item.ToplamFiyat.ToString("C")</td>
+                </tr>
+
+                }
+                
+            </tbody>
+        </table>
+        <div class="form-group">
+            <div class="col-sm-10">
+
+            </div>
+            <div class="col-sm-2">
+                <input id="Button1" type="button" value="Sipariþ Ver" class="btn btn-primary form-control" />
+            </div>
+
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,13 @@
+@model List<EticaretSitesiBirkan.REKLAM> 
+
+
+<div class="col-sm-12" >
+    <div class="row">
+
+        @foreach (var item in Model)
+        {
+            @Html.Raw(item.REKLAM_KODU) <br />
+        }
+    </div>
+</div>
+

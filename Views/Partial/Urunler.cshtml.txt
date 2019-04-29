@@ -1,0 +1,59 @@
+@model List<URUNLER>
+
+
+<div class="row" style="padding-bottom=10px">
+    @if (ViewBag.KategoriUrunleri==null)
+    {
+        foreach (var item in Model)
+        {
+            try
+            {
+                <div class="col-sm-3 box col-sm-offset-1" style="margin-top:15px">
+                    <img src="~/images/urunler/@item.URUNLER_RESIM.First().RESIM" class="img-thumbnail img-responsive" />
+                    <h3>@item.URUN_ADI</h3>
+                    <p>@item.URUN_ACIKLAMA</p>
+                    <h4>@item.URUN_FIYAT.Value.ToString("C")</h4>
+                    <a href="/UrunDetay/Index/@item.URUNLER_ID" class="btn btn-primary btn-block">Ürün Detay</a>
+                </div>
+            }
+            catch (Exception)
+            {
+                <div class="col-sm-3 box col-sm-offset-1" style="margin-top:15px">
+                    <img src="~/images/urunler/resimyok.jpg" class="img-thumbnail img-responsive" />
+                    <h3>@item.URUN_ADI</h3>
+                    <p>@item.URUN_ACIKLAMA</p>
+                    <h4>@item.URUN_FIYAT.Value.ToString("C")</h4>
+                    <a href="/UrunDetay/Index/@item.URUNLER_ID" class="btn btn-primary btn-block">Ürün Detay</a>
+                </div>
+            }
+        }
+
+    }
+    else
+    {
+        foreach (var item in (List<KATEGORI_URUNLER>)ViewBag.KategoriUrunleri)
+        {
+            try
+            {
+                <div class="col-sm-3 box col-sm-offset-1" style="margin-top:15px">
+                    <img src="~/images/urunler/@item.URUNLER.URUNLER_RESIM.First().RESIM" class="img-thumbnail img-responsive" />
+                    <h3>@item.URUNLER.URUN_ADI</h3>
+                    <p>@item.URUNLER.URUN_ACIKLAMA</p>
+                    <h4>@item.URUNLER.URUN_FIYAT.Value.ToString("C")</h4>
+                    <a href="/UrunDetay/Index/@item.URUNLER_ID" class="btn btn-primary btn-block">Ürün Detay</a>
+                </div>
+            }
+            catch (Exception)
+            {
+                <div class="col-sm-3 box col-sm-offset-1" style="margin-top:15px">
+                    <img src="~/images/urunler/resimyok.jpg" class="img-thumbnail img-responsive" />
+                    <h3>@item.URUNLER.URUN_ADI</h3>
+                    <p>@item.URUNLER.URUN_ACIKLAMA</p>
+                    <h4>@item.URUNLER.URUN_FIYAT.Value.ToString("C")</h4>
+                    <a href="/UrunDetay/Index/@item.URUNLER_ID" class="btn btn-primary btn-block">Ürün Detay</a>
+                </div>
+            }
+        }
+    }
+
+</div>

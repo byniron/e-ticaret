@@ -1,0 +1,25 @@
+@model URUNLER 
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Index.cshtml";
+}
+
+
+
+    <div class="row">
+        <div class="col-sm-12">
+           <img src="~/images/urunler/@Model.URUNLER_RESIM.FirstOrDefault().RESIM" />
+            <h3>@Model.URUN_ADI</h3>
+            <h4>@Model.URUN_FIYAT.Value.ToString("C")</h4>
+            <div>
+            <input id="btnSepeteEkle" type="button"  value="Sepete At" class="btn btn-primary"  />
+            <input id="hiddenUrunID" type="hidden" value="@Model.URUNLER_ID" />
+            </div>
+            <hr />
+            <p>@Model.URUN_ACIKLAMA</p>
+        </div>
+    </div>
+
+
+
+

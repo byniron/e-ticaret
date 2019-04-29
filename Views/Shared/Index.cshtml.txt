@@ -1,0 +1,54 @@
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.9.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>  
+    <script>
+        $(document).ready(function() {
+            $("#btnSepeteEkle").click(function () {
+                $.ajax({
+
+                    url: '/SepeteEkle.ashx', type: 'POST', data: 'urunid=' + $("#hiddenUrunID").val(),
+
+                    success: function (data) {
+                        //console.log(data);
+                        //alert("Success: " + data);
+                        $("#sepetsayi").html(data);
+                    },
+
+                    error: function (errorText) {
+                        alert("Bir þeyler yanlýþ gidiyor!");
+                    }
+                });
+                window.alert("Sepete Ekleme");
+            })
+        });
+    </script>
+
+</head>
+<body>
+   
+        <div>@Html.Action("UstMenu","Shared")</div> 
+
+        <div class="container">  
+           
+            <div class="col-xs-3">   @*(sol menü)*@
+               @Html.Action("SolMenu","Shared")
+               @Html.Action("SolReklam","Shared")
+
+                </div>
+            <div class="col-xs-9"> @RenderBody()  </div> 
+        </div>
+        <div>Alt Menü</div>
+
+</body>
+</html>

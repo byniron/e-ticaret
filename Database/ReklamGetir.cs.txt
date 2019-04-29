@@ -1,0 +1,23 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace EticaretSitesiBirkan.Database
+{
+    public class ReklamGetir
+    {
+      public List<REKLAM> reklamlar(YERLER yerler)
+        {
+            using (EticaretDbBirkanEntities c = new EticaretDbBirkanEntities())
+            {
+                return c.REKLAM.Where(x => x.YER == yerler.ToString() && x.DURUM == true).ToList(); 
+            }
+        }
+        
+    }
+    public enum YERLER
+    {
+        SOL, SAG, UST, ALT
+    }
+}

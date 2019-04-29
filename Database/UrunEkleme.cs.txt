@@ -1,0 +1,19 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace EticaretSitesiBirkan.Database
+{
+    public class UrunEkleme
+    {
+        public void Ekle(URUNLER urun)
+        {
+            using (EticaretDbBirkanEntities c = new EticaretDbBirkanEntities())
+            {
+                c.URUNLER.Add(urun);
+                c.SaveChanges();
+            }
+        }
+    }
+}

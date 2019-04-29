@@ -1,0 +1,137 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using EticaretSitesiBirkan.Database;
+namespace EticaretSitesiBirkan.Controllers //3
+{
+    public class PartialController : Controller
+    {
+        // GET: Partial
+
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        public ActionResult Urunler()
+        {
+
+            #region ilkhali
+            //using (EticaretDbBirkanEntities c = new EticaretDbBirkanEntities())
+            //{
+            //    List<URUNLER> urunler = c.URUNLER.Include("URUNLER_RESIM").ToList();
+            //    return View(urunler);
+            //} 
+            #endregion 
+            //tüm ürünler geliyordu
+            if (RouteData.Values["id"] == null )
+            {
+                using (EticaretDbBirkanEntities c = new EticaretDbBirkanEntities())
+                {
+                    List<URUNLER> urunler = c.URUNLER.Include("URUNLER_RESIM").ToList();
+                    return View(urunler); //burada data modelle gidiyoru
+                }
+            }
+            else
+            {
+                //using (EticaretDbBirkanEntities c = new EticaretDbBirkanEntities())
+                //{
+
+                EticaretDbBirkanEntities c = new EticaretDbBirkanEntities();                
+                    int kategoriID = Convert.ToInt32(RouteData.Values["id"]); //kullanýcýnýn týkladýðý id bilgisi kategoriID deðiþkeninde
+                    var urunkategorileri = c.KATEGORI_URUNLER.Where(x => x.KATEGORI_ID == kategoriID).ToList();
+                    ViewBag.KategoriUrunleri = urunkategorileri; //data burada view bag ile gidiyor
+                    return View();
+                  
+               //}
+            }
+
+        }
+
+        public ActionResult AdminMenu()
+        {
+            return View();
+        }
+        public ActionResult UrunEkle()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult UrunEkle(string urunadi,string urunfiyat,string urunstok,string urunaciklama, HttpPostedFileBase urunresim)
+        {
+            string uyari = null;
+            string resimad = null;
+            if (urunresim!=null)
+
+            {
+                string pic = System.IO.Path.GetFileName(urunresim.FileName);
+                resimad = Guid.NewGuid().ToString() + "-" + pic;
+                string path = System.IO.Path.Combine(Server.MapPath("~/images/urunler"), resimad); 
+                
+                urunresim.SaveAs(path); 
+            }
+            else
+            {
+                uyari += "Resim Ekleyiniz <br>";
+            }
+            if (urunadi.Length == 0) 
+            {
+                uyari += "Ürün Adý Boþ Býrakýlamaz <br>";
+            }
+            if (urunfiyat.Length == 0)
+            {
+                uyari += "Ürün Fiyatý Boþ Býrakýlamaz <br>";
+            }
+            if (urunaciklama.Length == 0)
+            {
+                uyari += "Ürün Açýklama Boþ Býrakýlamaz <br>";
+            }
+            try
+            {
+                Convert.ToDecimal(urunfiyat);
+            }
+            catch (Exception)
+            {
+                uyari += "Hatalý Ürün Fiyatý <br>";
+            }
+            try
+            {
+                Convert.ToInt32(urunstok);
+            }
+            catch (Exception)
+            {
+                uyari += "Hatalý Ürün Stok <br>";
+            }
+            if (uyari==null)
+            {
+                UrunEkleme ekle = new UrunEkleme();
+                
+                URUNLER urun = new URUNLER();
+                urun.URUN_ADI = urunadi;
+                urun.URUN_ACIKLAMA = urunaciklama;
+                urun.URUN_FIYAT = Convert.ToDecimal(urunfiyat);
+                urun.URUN_STOK = Convert.ToInt32(urunstok);
+           
+                ekle.Ekle(urun);
+                UrunResimEkleme resimEkle = new UrunResimEkleme();
+                resimEkle.Ekle(resimad, urun.URUNLER_ID);
+                ViewBag.Uyari = "ürün eklendi";
+
+                return RedirectToAction("Index", "Yonetim");
+            }
+            else
+            {
+                ViewBag.Uyari = uyari;
+                return RedirectToAction("Index","Yonetim");
+            }
+
+            return View();
+        }
+        public ActionResult Sayfa()
+        {
+            return View("UrunEkle");
+        }
+    }
+}

@@ -1,0 +1,22 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using EticaretSitesiBirkan.Database;
+
+namespace EticaretSitesiBirkan.Controllers
+{
+    public class UrunDetayController : Controller
+    {
+        // GET: UrunDetay
+        public ActionResult Index()
+        {
+            var data = RouteData.Values["id"]; 
+            UrunDetayGetir urunDetay = new UrunDetayGetir();
+            var urun = urunDetay.urungetir(Convert.ToInt32(data));
+
+            return View(urun);
+        }
+    }
+}

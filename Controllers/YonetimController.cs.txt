@@ -1,0 +1,28 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace EticaretSitesiBirkan.Controllers
+{
+    public class YonetimController : Controller
+    {
+        // GET: Yonetim
+        public ActionResult Index()
+        {
+            try
+            {
+                if(Session["Login"] == null )
+                {
+                    return RedirectToAction("Index", "AdminLogin");
+                }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Index", "AdminLogin");
+            }
+            return View();
+        }
+    }
+}

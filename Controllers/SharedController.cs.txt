@@ -1,0 +1,36 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using EticaretSitesiBirkan.Database;
+
+
+namespace EticaretSitesiBirkan.Controllers 
+{
+    public class SharedController : Controller 
+    {
+        // GET: Shared
+        public ActionResult Index()
+        {
+            return View();
+        }
+        public ActionResult UstMenu()
+        {
+            AyarGetir c = new AyarGetir();
+            ViewBag.SiteAdi = c.Ayar("siteadi");
+            return View();
+        }
+        public ActionResult SolMenu()
+        {
+            KategoriListele c = new KategoriListele();
+            
+            return View(c.Kategoriler());
+        }
+        public ActionResult SolReklam()
+        {
+            ReklamGetir c = new ReklamGetir();
+            return View(c.reklamlar(YERLER.SOL));
+        }
+    }
+}

@@ -1,0 +1,48 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace EticaretSitesiBirkan.Controllers
+{
+    public class SepetController : Controller
+    {
+        // GET: Sepet
+        public ActionResult Index()
+        {
+            List<SepetSinifi> sepet = new List<SepetSinifi>();
+            var sepetUrunleri = (List<URUNLER>)Session["sepet"];
+            foreach (var item in sepetUrunleri)
+            {
+                if(sepet.Where(x=> x.UrunID == item.URUNLER_ID).FirstOrDefault() != null)
+                {
+                    var urunkalmeBilgi = sepet.Where(x => x.UrunID == item.URUNLER_ID).FirstOrDefault();
+                    urunkalmeBilgi.Adet = urunkalmeBilgi.Adet + 1;
+                    urunkalmeBilgi.ToplamFiyat = urunkalmeBilgi.ToplamFiyat + item.URUN_FIYAT.Value;
+                }
+                else
+                {
+                    SepetSinifi eklenecekurun = new SepetSinifi();
+                    eklenecekurun.Adet = 1;
+                    eklenecekurun.Fiyat = item.URUN_FIYAT.Value;
+                    eklenecekurun.UrunAdi = item.URUN_ADI;
+                    eklenecekurun.ToplamFiyat = item.URUN_FIYAT.Value;
+                    eklenecekurun.UrunID = item.URUNLER_ID;
+
+                    sepet.Add(eklenecekurun);
+
+                }
+            }
+            return View(sepet);
+        }
+    }
+    public class SepetSinifi
+    {
+        public int UrunID { get; set; }
+        public string UrunAdi { get; set; }
+        public decimal Fiyat { get; set; }
+        public int Adet { get; set; }
+        public decimal ToplamFiyat { get; set; }
+    }
+}

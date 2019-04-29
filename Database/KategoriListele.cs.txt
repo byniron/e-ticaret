@@ -1,0 +1,20 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace EticaretSitesiBirkan//.Database
+{
+    public class KategoriListele
+    {
+        
+        public List<KATEGORILER> Kategoriler()
+        {
+            using (EticaretDbBirkanEntities c = new EticaretDbBirkanEntities())
+            {
+                return c.KATEGORILER.OrderBy(x => x.KATEGORI_SIRA).ToList();
+            }
+        }
+	
+    }
+}

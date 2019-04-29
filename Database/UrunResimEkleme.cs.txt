@@ -1,0 +1,25 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace EticaretSitesiBirkan.Database
+{
+    public class UrunResimEkleme
+    {
+
+        public void Ekle(string resim, int urunID)
+        {
+            using (EticaretDbBirkanEntities c = new EticaretDbBirkanEntities())
+            {
+                URUNLER_RESIM image = new URUNLER_RESIM();
+                image.DURUM = true;
+                image.RESIM = resim;
+                image.URUNLER_ID = urunID;
+                image.SIRA = null;
+                c.URUNLER_RESIM.Add(image);
+                c.SaveChanges();
+            }
+        }
+    }
+}

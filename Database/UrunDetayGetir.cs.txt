@@ -1,0 +1,18 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace EticaretSitesiBirkan.Database
+{
+    public class UrunDetayGetir
+    {
+        public URUNLER urungetir(int UrunID)
+        {
+            using (EticaretDbBirkanEntities c = new EticaretDbBirkanEntities())
+            {
+                return c.URUNLER.Include("URUNLER_RESIM").Where(x => x.URUNLER_ID == UrunID).FirstOrDefault();
+            }
+        }
+    }
+}

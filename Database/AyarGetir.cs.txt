@@ -1,0 +1,27 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace EticaretSitesiBirkan.Database
+{
+    public class AyarGetir
+    {
+        public string Ayar(string ayarisim)
+        {
+            using (EticaretDbBirkanEntities c = new EticaretDbBirkanEntities())
+            {
+                var deger = c.SITEAYARLARI.Where(x => x.AYARISIM == ayarisim).FirstOrDefault();
+
+                if(deger==null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return deger.AYARDEGER;
+                }
+            }
+        }
+    }
+}
